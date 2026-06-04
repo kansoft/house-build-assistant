@@ -55,7 +55,7 @@ HouseBuild Assistant — Astro 6 (`output: "server"`) + React 19 + Tailwind 4, a
 - React 19: no `import React` needed; the React Compiler lint rule is set to **error**, so avoid patterns it rejects. `no-console` is a warning; prefix intentionally-unused vars with `_`.
 - Read server env via Astro's typed env (`astro:env/server`: `SUPABASE_URL`, `SUPABASE_KEY`), not `process.env`. Local dev against the Cloudflare runtime needs a `.dev.vars` file (copy from `.env.example`).
 - Route protection: add paths to `PROTECTED_ROUTES` in `src/middleware.ts`; the authed user is on `context.locals.user`.
-- When implementing feautures use best React patterns ;o
+- When implementing features use best React patterns ;o
 - **Branch trap:** local default branch is `main`, but CI (`.github/workflows/ci.yml`) triggers only on `master`. Confirm the target branch before opening PRs.
 
 <!-- BEGIN @przeprogramowani/10x-cli -->
