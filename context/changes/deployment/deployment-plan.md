@@ -148,29 +148,21 @@ no global install.
 
 ## Phase 5 — Auto-deploy via Cloudflare Workers Builds (native, no GHA deploy)
 
-- [ ] **5.1 Connect the repo in Cloudflare** (you, dashboard → Workers → the Worker → Settings →
-  Builds → Connect / "Git integration"). Install the Cloudflare GitHub App on
-  `kansoft/house-build-assistant`, scoped to this repo only. Set:
-  - **Production branch:** `main`
-  - **Build command:** `npm run build`
-  - **Deploy command:** `npx wrangler deploy` (non-`main` branches auto-use
-    `npx wrangler versions upload` for preview versions)
-  - Cloudflare uses the committed `wrangler.jsonc`; autoconfig won't open a PR since we already
-    have one.
-- [ ] **5.2 Confirm build environment**: Workers Builds reads `.nvmrc` (Node 22.14.0) — verify the
-  build picks it up. Runtime secrets set in 3.2 already live on the Worker; no build-time secrets
-  are required (the `astro:env` vars are read at runtime, not inlined at build). If a build step
-  ever needs them, add them as Build variables/secrets in the Cloudflare Builds settings — not in
-  the repo.
+- [x] **5.1 Connect the repo in Cloudflare** ✅ done — Workers Builds connected to
+  `kansoft/house-build-assistant`, production branch `main`, build `npm run build`, deploy
+  `npx wrangler deploy`.
+- [x] **5.2 Confirm build environment / auto-deploy** ✅ verified — push of empty commit `436b8f6`
+  to `main` triggered a Workers Build that produced deployment `86a48f4d` (23:35Z) with no manual
+  CLI action; live site stayed healthy (`/` 200). Runtime secrets already on the Worker; no
+  build-time secrets needed.
 - [x] **5.3 Fix GHA triggers** — `.github/workflows/ci.yml` `push`/`pull_request` `master` → `main`
   ✅ Done. Still lint+build only (no deploy step); existing build secrets unchanged.
 
 ## Phase 6 — Capture the artifact
 
-- [ ] **6.1 Write `context/deployment/deploy-plan.md`** (create the dir): the approved, executed
-  plan — commands run, manual gates, secrets wired, the deployed URL, rollback command
-  (`wrangler rollback [<version-id>]`), and the Supabase URL-config step. This is the downstream
-  audit trail ("what was supposed to happen") consumed by later milestone-planning.
+- [x] **6.1 Write `context/deployment/deploy-plan.md`** ✅ done — concise durable audit record
+  (platform, live URL, auto-deploy mechanism, secrets/bindings, Supabase config, security
+  guardrail, rollback/ops), pointing back to this detailed checklist. Kept short to avoid drift.
 
 ---
 
